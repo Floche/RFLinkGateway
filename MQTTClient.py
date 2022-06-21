@@ -74,8 +74,12 @@ class MQTTClient(multiprocessing.Process):
             else:
                 task['payload'] = '{"value": "' + str(task['payload']) + '"}'
         try:
-            self._mqttConn.publish(topic, payload=task['payload'])
+            msg_info = self._mqttConn.publish(topic, payload=task['payload'])
             self.logger.debug('Sending:%s' % (task))
+            if msg_info.is_published() == False:
+                self.logger.debug('Failed.. wait for publish')
+                #msg_info.wait_for_publish()
+
         except Exception as e:
             self.logger.error('Publish problem: %s' % (e))
             self.__messageQ.put(task)
@@ -90,3 +94,10 @@ class MQTTClient(multiprocessing.Process):
             else:
                 time.sleep(0.01)
             self._mqttConn.loop()
+            if self._mqttConn.is_connected() == False:
+                self.logger.debug('Try to reconnecting..')
+                try:
+                    self._mqttConn.reconnect()
+                except Exception as e:
+                    self.logger.debug('Failed, wait and try again.')
+                    time.sleep(5)

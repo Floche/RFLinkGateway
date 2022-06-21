@@ -5,11 +5,10 @@ Conflicts=getty@tty1.service
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/scripts/RFLinkGateway
+WorkingDirectory=/home/pi/RFLinkGateway
 # Set correct path
-ExecStart=/opt/scripts/RFLinkGateway/bin/python3 /opt/scripts/RFLinkGateway/RFLinkGateway.py
-user=root
-User=root
+ExecStart=/usr/bin/python3 /home/pi/RFLinkGateway/RFLinkGateway.py
+User=pi
 
 [Install]
 WantedBy=multi-user.target

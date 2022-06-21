@@ -1,0 +1,28 @@
+{
+  "mqtt_host": "192.168.1.12",
+  "mqtt_port": 1883,
+  "mqtt_prefix": "/data/RFLINK",
+  "mqtt_format": "json",
+  "mqtt_message_timeout": 60,
+  "mqtt_user":"pi",
+  "mqtt_password":"poil",
+  "rflink_tty_device": "/dev/ttyUSB0",
+  "rflink_direct_output_params": [
+    "BAT",
+    "CMD",
+    "SET_LEVEL",
+    "SWITCH",
+    "HUM",
+    "CHIME",
+    "PIR",
+    "SMOKEALERT"
+  ],
+  "rflink_signed_output_params": [
+    "TEMP",
+    "WINCHL",
+    "WINTMP"
+  ],
+  "rflink_wdir_output_params": [
+    "WINDIR"
+  ]
+}
